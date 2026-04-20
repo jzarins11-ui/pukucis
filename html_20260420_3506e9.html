@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Pukucis un Kakucis</title>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- iOS Home Screen Icons -->
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  
+  <!-- iOS Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pukucis">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#3b82f6">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 32px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+    
+    .icon-placeholder {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 24px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      font-size: 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    
+    button:hover {
+      background: #2563eb;
+      transform: scale(1.02);
+    }
+    
+    .status {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+    
+    @media (display-mode: standalone) {
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon-placeholder">🐱</div>
+    <h1>Pukucis & Kakucis</h1>
+    <p class="subtitle">Your fun companion app</p>
+    <button onclick="showMessage()">Tap Me!</button>
+    <p class="status" id="status">✨ Ready to install</p>
+  </div>
+
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => {
+            console.log('✅ Service Worker registered', reg);
+            document.getElementById('status').innerHTML = '✅ App ready for offline use';
+          })
+          .catch(err => {
+            console.log('❌ Service Worker registration failed', err);
+            document.getElementById('status').innerHTML = '⚠️ Offline mode not available';
+          });
+      });
+    } else {
+      document.getElementById('status').innerHTML = 'ℹ️ Service Worker not supported';
+    }
+
+    function showMessage() {
+      alert('Hello from Pukucis & Kakucis! 🎉');
+    }
+  </script>
+</body>
+</html>
